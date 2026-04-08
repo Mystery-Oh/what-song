@@ -1,0 +1,18 @@
+.mood-tag-button {
+    padding: 10px 24px;
+    border-radius: 9999px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    background: transparent;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.mood-tag-button.active {
+    border-color: #bcff00;
+    color: #bcff00;
+    box-shadow: 0 0 15px rgba(188, 255, 0, 0.4);
+    background: rgba(188, 255, 0, 0.05);
+}
