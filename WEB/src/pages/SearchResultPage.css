@@ -1,0 +1,354 @@
+.result-page {
+    min-height: 100vh;
+    background: #000;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+}
+
+.result-container {
+    width: 100%;
+    max-width: 1052px;
+    min-height: 100vh;
+    padding: 38px 36px 34px;
+}
+
+/* 상단 */
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 58px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-right button {
+    min-width: 92px;
+    height: 30px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(204, 202, 202, 0.8);
+    background: transparent;
+    color: #989898;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.header-right .outline {
+    border-width: 2px;
+}
+
+/* 메인 타이틀 */
+.result-title {
+    margin: 0 0 52px;
+    font-size: 70px;
+    font-weight: 800;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+}
+
+.result-title span {
+    color: #89FB65;
+    text-shadow: 0 0 18px rgba(137, 251, 101, 0.32);
+}
+
+/* 상단 메인 영역 */
+.result-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 92px;
+    margin-bottom: 96px;
+}
+
+.result-cards {
+    display: flex;
+    gap: 34px;
+}
+
+.card {
+    text-align: left;
+}
+
+.card .title {
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.card .artist {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.62);
+    letter-spacing: -0.02em;
+}
+
+.card.large .title {
+    margin-top: 18px;
+    font-size: 20px;
+}
+
+.card.large .artist {
+    margin-top: 8px;
+    font-size: 15px;
+}
+
+.card.small .title {
+    margin-top: 16px;
+    font-size: 18px;
+}
+
+.card.small .artist {
+    margin-top: 6px;
+    font-size: 15px;
+}
+
+/* 앨범아트 겹침 */
+.album-stack {
+    position: relative;
+    display: inline-block;
+}
+
+.album-stack--large {
+    width: 280px;
+    height: 280px;
+}
+
+.album-stack--small {
+    width: 186px;
+    height: 186px;
+}
+
+.album-stack__layer,
+.album-stack__image {
+    position: absolute;
+    inset: 0;
+    border-radius: 26px;
+}
+
+.album-stack__image {
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 2px solid rgba(137, 251, 101, 0.92);
+    cursor: pointer;
+}
+
+.album-stack__layer {
+    background: transparent;
+    border: 2px solid rgba(137, 251, 101, 0.92);
+}
+
+.album-stack__layer--1 {
+    z-index: 1;
+    transform: translate(16px, -8px);
+}
+
+.album-stack__layer--2 {
+    z-index: 2;
+    transform: translate(8px, -4px);
+}
+
+/* 작은 카드만 약간 삐뚤한 느낌 */
+.card.small:nth-child(1) .album-stack__layer--1 {
+    transform: translate(14px, -8px) rotate(-4deg);
+}
+.card.small:nth-child(1) .album-stack__layer--2 {
+    transform: translate(1px, -4px) rotate(-10deg);
+}
+
+.card.small:nth-child(2) .album-stack__layer--1 {
+    transform: translate(14px, -8px) rotate(4deg);
+}
+.card.small:nth-child(2) .album-stack__layer--2 {
+    transform: translate(1px, -4px) rotate(-10deg);
+}
+
+.card.small:nth-child(3) .album-stack__layer--1 {
+    transform: translate(14px, -8px) rotate(-3deg);
+}
+.card.small:nth-child(3) .album-stack__layer--2 {
+    transform: translate(1px, -4px) rotate(-10deg);
+}
+
+.card.small:nth-child(4) .album-stack__layer--1 {
+    transform: translate(14px, -8px) rotate(3deg);
+}
+.card.small:nth-child(4) .album-stack__layer--2 {
+    transform: translate(7px, -4px) rotate(1deg);
+}
+
+/* 우측 무드 버튼 */
+.result-tags {
+    display: grid;
+    grid-template-columns: repeat(2, 148px);
+    gap: 14px;
+    align-content: start;
+}
+
+.result-tags button {
+    width: 148px;
+    height: 48px;
+    border-radius: 26px;
+    border: 2px solid rgba(255, 255, 255, 0.28);
+    background: rgba(0, 0, 0, 0.35);
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.result-tags button:hover {
+    border-color: rgba(137, 251, 101, 0.72);
+    color: #fff;
+}
+
+.result-tags button.active {
+    color: #89FB65;
+    border-color: #89FB65;
+    background: rgba(137, 251, 101, 0.06);
+    box-shadow:
+            0 0 16px rgba(137, 251, 101, 0.34),
+            inset 0 0 14px rgba(137, 251, 101, 0.08);
+}
+
+/* 하단 섹션 */
+.result-section h2 {
+    margin: 0 0 28px;
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1;
+}
+
+.small-cards {
+    display: flex;
+    gap: 24px;
+}
+
+/* footer */
+.result-footer {
+    margin-top: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    color: rgba(255, 255, 255, 0.18);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.result-footer a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.result-footer a:hover {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+/* 반응형 */
+@media (max-width: 1200px) {
+    .result-main {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .result-tags {
+        grid-template-columns: repeat(4, 148px);
+    }
+}
+
+@media (max-width: 900px) {
+    .result-title {
+        font-size: 50px;
+    }
+
+    .result-section h2 {
+        font-size: 34px;
+    }
+
+    .result-cards,
+    .small-cards {
+        flex-wrap: wrap;
+    }
+
+    .result-tags {
+        grid-template-columns: repeat(2, 148px);
+    }
+}
+
+@media (max-width: 640px) {
+    .result-container {
+        padding: 24px 16px 28px;
+    }
+
+    .result-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        font-size: 14px;
+    }
+
+    .header-left {
+        flex-wrap: wrap;
+        gap: 12px 20px;
+    }
+
+    .header-right button {
+        font-size: 15px;
+        height: 40px;
+    }
+
+    .result-title {
+        font-size: 38px;
+        margin-bottom: 34px;
+    }
+
+    .album-stack--large {
+        width: 220px;
+        height: 220px;
+    }
+
+    .album-stack--small {
+        width: 150px;
+        height: 150px;
+    }
+
+    .result-tags {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+    }
+
+    .result-tags button {
+        width: 100%;
+        height: 72px;
+        font-size: 16px;
+    }
+
+    .result-section h2 {
+        font-size: 30px;
+    }
+
+    .result-footer {
+        font-size: 14px;
+        gap: 10px;
+    }
+}
