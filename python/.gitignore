@@ -5,8 +5,7 @@ __pycache__/
 
 #data
 data/
-requirements.txt
-/.vscode/
+
 
 # C extensions
 *.so
