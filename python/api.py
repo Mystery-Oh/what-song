@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -26,6 +26,15 @@ def parse_allowed_origins() -> list[str]:
         "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://127.0.0.1:3000",
     )
     return [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
+
+
+def verify_api_password(x_api_password: str | None = Header(default=None)) -> None:
+    expected_password = os.getenv("API_PASSWORD")
+    if not expected_password:
+        raise HTTPException(status_code=500, detail="API_PASSWORD is not configured.")
+
+    if x_api_password != expected_password:
+        raise HTTPException(status_code=401, detail="Invalid API password.")
 
 
 app = FastAPI(
@@ -92,7 +101,10 @@ def health() -> dict[str, str]:
 
 
 @app.post("/recommend", response_model=RecommendationResponse)
-def recommend(request: RecommendationRequest) -> dict[str, Any]:
+def recommend(
+    request: RecommendationRequest,
+    _: None = Depends(verify_api_password),
+) -> dict[str, Any]:
     query = request.query.strip()
     if not query:
         raise HTTPException(status_code=422, detail="query must not be empty.")
