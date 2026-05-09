@@ -1,9 +1,13 @@
-import './SearchResultPage.css';
 import {useLocation, useNavigate} from 'react-router-dom';
+// import React, { useMemo, useState } from "react";
+import './SearchResultPage.css';
+import EmotionMapModal from "../components/EmotionMapModal";
 
 export default function SearchResultPage() {
     const navigate = useNavigate();
     const location = useLocation();
+
+    // const [isEmotionModalOpen, setIsEmotionModalOpen] = useState(false);
 
     // const type = location.state?.type || 'mood';
     const keyword = location.state?.keyword || '설렘';
@@ -56,6 +60,34 @@ export default function SearchResultPage() {
             image: 'https://picsum.photos/300/300?6',
         },
     ];
+
+    // 곡분석 모달
+    // 검색한 곡 임시 데이터
+    // const searchedTrack = {
+    //     id: 999,
+    //     title: "사랑이 흩날릴 때",
+    //     artist: "뮤직조아 추천",
+    //     x: 52,
+    //     y: 54,
+    // };
+    //
+    // // 전체 곡 분포 임시 데이터
+    // const emotionPoints = useMemo(() => {
+    //     return [
+    //         { id: 1, title: "Blue Night", artist: "SORA", x: -42, y: 58, mood: "평온" },
+    //         { id: 2, title: "Run to You", artist: "Neon Day", x: 61, y: 48, mood: "설렘" },
+    //         { id: 3, title: "Cloud Step", artist: "Mello", x: -15, y: 24, mood: "안정" },
+    //         { id: 4, title: "Heat Wave", artist: "FLEX", x: 74, y: 68, mood: "흥분" },
+    //         { id: 5, title: "After Rain", artist: "Nuit", x: -58, y: -20, mood: "우울" },
+    //         { id: 6, title: "Moonlight Taxi", artist: "Haru", x: 20, y: -32, mood: "나른" },
+    //         { id: 7, title: "Diving", artist: "Lime Soda", x: 44, y: 12, mood: "기쁨" },
+    //         { id: 8, title: "Stay Here", artist: "MIRA", x: -22, y: -46, mood: "차분" },
+    //         { id: 9, title: "Shine Loop", artist: "Vivid", x: 46, y: 36, mood: "행복" },
+    //         { id: 10, title: "Slow Letter", artist: "Muun", x: -36, y: 8, mood: "편안" },
+    //         { id: 11, title: "Orbit Love", artist: "PLAIN", x: 66, y: 20, mood: "즐거움" },
+    //         { id: 12, title: "Faded Lake", artist: "Rin", x: -64, y: -52, mood: "침잠" },
+    //     ];
+    // }, []);
 
     return (
         <div className="result-page">
@@ -125,6 +157,54 @@ export default function SearchResultPage() {
                         ))}
                     </div>
                 </section>
+
+
+                {/*<div style={{ padding: "40px", color: "#fff", background: "#0b1020", minHeight: "100vh" }}>*/}
+                {/*    <h1>Search Page</h1>*/}
+                {/*    <p>검색 결과 예시 화면</p>*/}
+
+                {/*    <div*/}
+                {/*        style={{*/}
+                {/*            marginTop: "24px",*/}
+                {/*            padding: "20px",*/}
+                {/*            borderRadius: "16px",*/}
+                {/*            background: "rgba(255,255,255,0.06)",*/}
+                {/*            border: "1px solid rgba(255,255,255,0.08)",*/}
+                {/*            maxWidth: "520px",*/}
+                {/*        }}*/}
+                {/*    >*/}
+                {/*        <h2 style={{ marginTop: 0 }}>{searchedTrack.title}</h2>*/}
+                {/*        <p style={{ color: "rgba(255,255,255,0.7)" }}>{searchedTrack.artist}</p>*/}
+
+                {/*        <button*/}
+                {/*            onClick={() => setIsEmotionModalOpen(true)}*/}
+                {/*            style={{*/}
+                {/*                marginTop: "12px",*/}
+                {/*                padding: "12px 18px",*/}
+                {/*                borderRadius: "12px",*/}
+                {/*                border: "1px solid rgba(34,211,238,0.3)",*/}
+                {/*                background: "rgba(34,211,238,0.14)",*/}
+                {/*                color: "#d9fbff",*/}
+                {/*                cursor: "pointer",*/}
+                {/*            }}*/}
+                {/*        >*/}
+                {/*            감정 분포 보기*/}
+                {/*        </button>*/}
+                {/*    </div>*/}
+
+                {/*    <EmotionMapModal*/}
+                {/*        open={isEmotionModalOpen}*/}
+                {/*        onClose={() => setIsEmotionModalOpen(false)}*/}
+                {/*        searchedTrack={searchedTrack}*/}
+                {/*        tracks={emotionPoints}*/}
+                {/*        title="감정 분포 보기"*/}
+                {/*    />*/}
+                {/*</div>*/}
+
+
+
+
+
 
                 <footer className="result-footer">
                     <a href="#">ABOUT</a>
