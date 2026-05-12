@@ -1,54 +1,63 @@
 import './PlayerPage.css';
-import {useState} from "react";
+import { useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
+import EmotionMapModal from "../components/EmotionMapModal";
 
 export default function PlayerPage() {
     const [isSpecOpen, setIsSpecOpen] = useState(false);
+    const [isEmotionOpen, setIsEmotionOpen] = useState(false);
 
-    const currentTrack = {
-        title: '벚꽃잎 Spring in me (feat. Dalchong)',
-        artist: 'YESUNG',
-        spectrogramImage: '/spectrograms/spring-in-me.png',
-    };
+    const location = useLocation();
 
-    const nextTracks = [
-        {
-            title: '벚꽃잎 Spring in me (feat. Dalchong)',
-            artist: 'YESUNG',
-            duration: '4:31',
-            image: 'https://picsum.photos/80/80?1',
-            active: true,
-        },
-        {
-            title: '비처럼 가지 마요 One More Chance',
-            artist: 'SUPER JUNIOR',
-            duration: '4:16',
-            image: 'https://picsum.photos/80/80?2',
-        },
-        {
-            title: 'Jumping Machine (跳楼机)',
-            artist: 'LBI',
-            duration: '3:22',
-            image: 'https://picsum.photos/80/80?3',
-        },
-        {
-            title: 'New Day',
-            artist: '풀림',
-            duration: '4:03',
-            image: 'https://picsum.photos/80/80?4',
-        },
-        {
-            title: '하루의 끝 (End of a day)',
-            artist: 'JONGHYUN',
-            duration: '4:38',
-            image: 'https://picsum.photos/80/80?5',
-        },
-        {
-            title: '끝이 아닐 (with 유주)',
-            artist: '권순관 및 유주',
-            duration: '4:01',
-            image: 'https://picsum.photos/80/80?6',
-        },
-    ];
+    const mood = location.state?.mood;
+    const keyword = location.state?.keyword || mood?.label || "설렘";
+    const playlist = location.state?.playlist || [];
+    const selectedSong = location.state?.selectedSong || playlist[0];
+
+    const currentTrack = selectedSong
+        ? {
+            id: selectedSong.song_id,
+            title: selectedSong.title,
+            artist: selectedSong.artist_name,
+            image: selectedSong.image || `https://picsum.photos/900/900?${selectedSong.song_id}`,
+            spectrogramImage: "/spectrograms/spring-in-me.png",
+            x: selectedSong.valence * 100,
+            y: selectedSong.arousal * 100,
+            mood: keyword,
+        }
+        : {
+            id: 999,
+            title: "재생할 곡이 없습니다",
+            artist: "",
+            image: "https://picsum.photos/900/900?10",
+            spectrogramImage: "/spectrograms/spring-in-me.png",
+            x: 0,
+            y: 0,
+            mood: keyword,
+        };
+
+    const nextTracks = playlist.map((song) => ({
+        id: song.song_id,
+        title: song.title,
+        artist: song.artist_name,
+        duration: "3:30",
+        image: song.image || `https://picsum.photos/80/80?${song.song_id}`,
+        active: song.song_id === currentTrack.id,
+        x: song.valence * 100,
+        y: song.arousal * 100,
+        mood: keyword,
+    }));
+
+    const emotionPoints = useMemo(() => {
+        return nextTracks.map((track) => ({
+            id: track.id,
+            title: track.title,
+            artist: track.artist,
+            x: track.x,
+            y: track.y,
+            mood: track.mood,
+        }));
+    }, [nextTracks]);
 
     return (
         <div className="player-page">
@@ -62,7 +71,7 @@ export default function PlayerPage() {
                     <div className="player-main__art-card">
                         <div className="player-main__art-frame">
                             <img
-                                src="https://picsum.photos/900/900?10"
+                                src={currentTrack.image}
                                 alt="album art"
                                 className="player-main__art-image"
                             />
@@ -76,8 +85,8 @@ export default function PlayerPage() {
                         <h2>다음 트랙</h2>
                     </div>
 
-                    <p className="player-sidebar__source-label">재생 중인 트랙 출처</p>
-                    <p className="player-sidebar__source-title">벚꽃잎 Spring in me 뮤직 스테이션</p>
+                    <p className="player-sidebar__source-label">#{keyword} 감정 재생목록</p>
+                    <p className="player-sidebar__source-title">{currentTrack.title}</p>
 
                     <div className="player-sidebar__filters">
                         <button className="is-active">All</button>
@@ -91,10 +100,13 @@ export default function PlayerPage() {
                         {nextTracks.map((track) => (
                             <div
                                 className={`track-item ${track.active ? 'is-active' : ''}`}
-                                key={`${track.title}-${track.artist}`}
-                            >
-                                <img src={track.image} alt={track.title} className="track-item__thumb" />
+                                key={`${track.title}-${track.artist}`} >
 
+                                <img
+                                    src={currentTrack.image}
+                                    alt="current track"
+                                    className="bottom-player__cover"
+                                />
                                 <div className="track-item__meta">
                                     <p className="track-item__title">{track.title}</p>
                                     <p className="track-item__artist">{track.artist}</p>
@@ -123,12 +135,10 @@ export default function PlayerPage() {
                         className="bottom-player__cover"
                     />
 
-
                     <div className="bottom-player__info">
                         <p className="bottom-player__title">{currentTrack.title}</p>
                         <p className="bottom-player__artist">{currentTrack.artist}</p>
                     </div>
-
                 </div>
 
                 <div className="bottom-player__right">
@@ -137,7 +147,6 @@ export default function PlayerPage() {
                         onClick={() => setIsSpecOpen(true)}
                         aria-label="멜스펙트로그램 보기"
                     >
-
                         <svg
                             width="28"
                             height="28"
@@ -157,9 +166,58 @@ export default function PlayerPage() {
                         </svg>
                     </button>
 
-                    <button className="icon-btn">👍</button>
-                    <button className="icon-btn">🔉</button>
-                    <button className="icon-btn">🔀</button>
+                    <button
+                        className="player-emotion-btn"
+                        onClick={() => setIsEmotionOpen(true)}
+                        aria-label="감정 분포 보기"
+                    >
+                        감정
+                    </button>
+
+
+                    <div className="bottom-player__right">
+                        <button className="icon-btn" aria-label="좋아요"
+                        >
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M12 21s-6.5-4.35-9-8.28C1.5 9.5 3.24 6 6.5 6c1.86 0 3.06 1.04 3.5 2.09C10.44 7.04 11.64 6 13.5 6 16.76 6 18.5 9.5 17 12.72 14.5 16.65 12 21 12 21z"
+                                    stroke="currentColor"
+                                    strokeWidth="1.6"
+                                />
+                            </svg>
+                        </button>
+
+                        <button className="icon-btn" aria-label="볼륨">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M5 9v6h4l5 4V5L9 9H5z"
+                                    stroke="currentColor"
+                                    strokeWidth="1.6"
+                                />
+                                <path
+                                    d="M16 9c1.5 1.5 1.5 4.5 0 6"
+                                    stroke="currentColor"
+                                    strokeWidth="1.6"
+                                />
+                            </svg>
+                        </button>
+
+                        <button className="icon-btn" aria-label="셔플">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M4 4h4l8 16h4"
+                                    stroke="currentColor"
+                                    strokeWidth="1.6"
+                                />
+                                <path
+                                    d="M20 4l-4 4 4 4"
+                                    stroke="currentColor"
+                                    strokeWidth="1.6"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+
                 </div>
             </footer>
 
@@ -194,6 +252,13 @@ export default function PlayerPage() {
                 </div>
             )}
 
+            <EmotionMapModal
+                open={isEmotionOpen}
+                onClose={() => setIsEmotionOpen(false)}
+                searchedTrack={currentTrack}
+                tracks={emotionPoints}
+                title="현재 곡 감정 분포"
+            />
         </div>
     );
 }

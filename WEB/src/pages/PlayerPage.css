@@ -307,9 +307,44 @@
     height: 34px;
 }
 
+.icon-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.75);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+.icon-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.icon-btn:hover {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
 .icon-btn--play {
     font-size: 28px;
 }
+
+
+.icon-btn.active {
+    color: #f472b6;
+    border-color: rgba(244,114,182,0.4);
+    background: rgba(244,114,182,0.12);
+}
+
 
 /*파형 웨이브 */
 .player-controls {
@@ -452,3 +487,222 @@
     align-items: center;
     margin: auto;
 }
+
+
+/* =========================
+   Bottom Player (전체 바)
+========================= */
+.bottom-player {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 88px;
+    padding: 0 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: rgba(20, 20, 24, 0.92);
+    backdrop-filter: blur(18px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    z-index: 100;
+    box-sizing: border-box;
+
+    /* 🔥 잘림 방지 핵심 */
+    overflow: visible;
+}
+
+/* =========================
+   왼쪽 (재생 컨트롤)
+========================= */
+.bottom-player__left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: 100%;
+}
+
+.bottom-player__time {
+    margin-left: 8px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+}
+
+/* =========================
+   중앙 (곡 정보)
+========================= */
+.bottom-player__center {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.bottom-player__cover {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    object-fit: cover;
+}
+
+.bottom-player__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bottom-player__title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.bottom-player__artist {
+    margin: 4px 0 0 0;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+}
+
+/* =========================
+   오른쪽 (버튼 영역)
+========================= */
+.bottom-player__right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 100%;
+}
+
+/* =========================
+   공통 버튼 스타일
+========================= */
+.icon-btn,
+.player-wave-btn,
+.player-emotion-btn {
+    height: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+    flex-shrink: 0;
+
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+/* =========================
+   원형 아이콘 버튼
+========================= */
+.icon-btn,
+.player-wave-btn {
+    width: 44px;
+    min-width: 44px;
+
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.75);
+}
+
+.icon-btn:hover,
+.player-wave-btn:hover {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.icon-btn svg,
+.player-wave-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* =========================
+   감정 버튼 (텍스트)
+========================= */
+.player-emotion-btn {
+    min-width: 64px;
+    padding: 0 16px;
+
+    border-radius: 14px;
+    border: 1px solid rgba(34, 211, 238, 0.28);
+    background: rgba(34, 211, 238, 0.12);
+    color: #d9fbff;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.06);
+}
+
+.player-emotion-btn:hover {
+    background: rgba(34, 211, 238, 0.2);
+    transform: translateY(-1px);
+}
+
+/* =========================
+   좋아요 활성 상태
+========================= */
+.icon-btn.active {
+    color: #f472b6;
+    border-color: rgba(244,114,182,0.4);
+    background: rgba(244,114,182,0.12);
+}
+
+/* =========================
+   플레이 버튼 (중앙 강조)
+========================= */
+.icon-btn--play {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    color: #111;
+
+    border: none;
+}
+
+.icon-btn--play:hover {
+    background: #fff;
+}
+
+/* =========================
+   페이지 하단 여백 (가림 방지)
+========================= */
+.player-page {
+    min-height: 100vh;
+    padding-bottom: 108px; /* 🔥 중요 */
+    box-sizing: border-box;
+}
+
+
+/* 감정모달 */
+.player-emotion-btn {
+    height: 44px;
+    min-width: 56px;
+    padding: 0 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(34, 211, 238, 0.28);
+    background: rgba(34, 211, 238, 0.12);
+    color: #d9fbff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.06);
+}
+
+.player-emotion-btn:hover {
+    background: rgba(34, 211, 238, 0.2);
+    transform: translateY(-1px);
+}
+
+
