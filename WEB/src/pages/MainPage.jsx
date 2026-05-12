@@ -9,14 +9,14 @@ export default function MainPage() {
 
 
     const moods = [
-        { icon: '✨', label: '설렘', active: true },
-        { icon: '≋', label: '평온' },
-        { icon: '💧', label: '우울' },
-        { icon: '⚡', label: '활기찬' },
-        { icon: '☁', label: '지침' },
-        { icon: '🛋', label: '편안함' },
-        { icon: '☺', label: '기쁨' },
-        { icon: '∿', label: '긴장됨' },
+        { label: "설렘", icon: "✨", x: 0.8, y: 0.7 },
+        { label: "평온", icon: "≋", x: 0.5, y: -0.8 },
+        { label: "우울", icon: "💧", x: -0.7, y: -0.6 },
+        { label: "활기찬", icon: "⚡", x: 0.6, y: 0.9 },
+        { label: "지침", icon: "☁", x: -0.3, y: -0.9 },
+        { label: "편안함", icon: "🛋", x: 0.8, y: -0.5 },
+        { label: "기쁨", icon: "☺", x: 0.7, y: 0.5 },
+        { label: "긴장됨", icon: "〰", x: -0.6, y: 0.7 },
     ];
 
     const goToResultByKeyword = () => {
@@ -35,7 +35,7 @@ export default function MainPage() {
         navigate('/result', {
             state: {
                 type: 'mood',
-                keyword: mood,
+                mood,
             },
         });
     };
@@ -81,10 +81,12 @@ export default function MainPage() {
                         <button
                             key={mood.label}
                             className={`main-page__mood-btn ${mood.active ? 'is-active' : ''}`}
-                            onClick={() => goToResultByMood(mood.label)}
-                        >
-                            <span className="main-page__mood-icon">{mood.icon}</span>
-                            <span>#{mood.label}</span>
+                            onClick={() => goToResultByMood(mood)}>
+                            <span className="main-page__mood-icon">
+                                {mood.icon}
+                            </span>
+
+                            <span> #{mood.label} </span>
                         </button>
                     ))}
                 </div>
