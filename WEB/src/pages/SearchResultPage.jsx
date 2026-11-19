@@ -289,7 +289,7 @@ export default function SearchResultPage() {
                 },
                 body: JSON.stringify({
                     query,
-                    limit: 30,
+                    limit: 20,
                 }),
             });
 
