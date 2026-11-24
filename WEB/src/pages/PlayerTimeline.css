@@ -1,0 +1,64 @@
+/* 기존 PlayerPage.css와 함께 import하는 타임라인 전용 스타일 */
+/* bottom-player는 기존 CSS에서 fixed, absolute, relative 또는 sticky여야 합니다. */
+.bottom-player__progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    background: linear-gradient(
+            to right,
+            #a78bfa 0%,
+            #a78bfa var(--progress, 0%),
+            rgba(128, 128, 128, 0.3) var(--progress, 0%),
+            rgba(128, 128, 128, 0.3) 100%
+    );
+    cursor: pointer;
+    z-index: 10;
+    transition: height 0.15s ease;
+}
+
+.bottom-player__progress:hover,
+.bottom-player__progress:focus-visible {
+    height: 8px;
+}
+
+.bottom-player__progress::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 0;
+    border-radius: 50%;
+    background: #a78bfa;
+    cursor: pointer;
+}
+
+.bottom-player__progress::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border: 0;
+    border-radius: 50%;
+    background: #a78bfa;
+    cursor: pointer;
+}
+
+.bottom-player__progress:disabled {
+    cursor: default;
+}
+
+.bottom-player__progress:focus-visible {
+    outline: 2px solid #a78bfa;
+    outline-offset: 2px;
+}
+
+.bottom-player__time {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
